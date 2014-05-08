@@ -1,6 +1,6 @@
 # R Client for the U.S. Federal Register API #
 
-[![Build Status](https://travis-ci.org/leeper/federalregister.png?branch=master)](https://travis-ci.org/leeper/federalregister)
+[![Build Status](https://travis-ci.org/rOpenGov/federalregister.png?branch=master)](https://travis-ci.org/rOpenGov/federalregister)
 
 This package provides access to the [API](https://www.federalregister.gov/developers/api/v1) for the [United States Federal Register](https://www.federalregister.gov/). The API provides access to [all Federal Register contents since 1994](https://www.federalregister.gov/learn/developers), including Executive Orders by Presidents Clinton, Bush, and Obama and all ["Public Inspection" Documents](https://www.federalregister.gov/learn/public-inspection-desk-2) made available prior to publication in the Register. The API returns basic details about each entry in the Register and provides URLs for HTML, PDF, and plain text versions of the contents thereof, and the data are fully searchable. The **federalregister** package provides access to all version 1 API endpoints.
 
