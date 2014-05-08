@@ -2,10 +2,10 @@
 \alias{fr_search}
 \title{Search the Federal Register}
 \description{Function to search for entries in the Federal Register}
-\usage{}
+\usage{fr_search()}
 \arguments{
   \item{}{}
-  \item{...}{}
+  \item{version}{The Federal Register API version. Default is 'v1'.}
 }
 \details{}
 
@@ -14,5 +14,7 @@
 \author{Thomas J. Leeper}
 %\note{}
 %\seealso{}
-\examples{}
+\examples{
+\dontrun{fr_search()}
+}
 %\keyword{}
