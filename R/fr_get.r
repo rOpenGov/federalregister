@@ -25,8 +25,6 @@ fr_get <- function(docnumber, fields=NULL, version='v1'){
             return(x)
         })
     }
-    class(out) <- 'fedreg_document'
     return(out)
-    
 }
 
