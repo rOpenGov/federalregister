@@ -35,6 +35,9 @@ Allowed values for \code{fields} are: \code{agencies}, \code{docket_numbers}, \c
 %\note{}
 %\seealso{}
 \examples{
-\dontrun{pi_search()}
+\dontrun{
+pi_search(type='RULE', fields=c('document_number','raw_text_url'))
+pi_search(type='PRESDOC')
+}
 }
 %\keyword{}

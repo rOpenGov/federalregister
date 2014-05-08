@@ -12,14 +12,17 @@ print.fedreg_document <- function(x, ...){
     if(!is.null(x$citation))
         cat(' Citation: ', x$citation)
     cat('\n')
+    if(!is.null(x$publication_date))
     cat('Date:', x$publication_date, '\n')
     if(!is.null(x$page_length))
         cat(x$page_length, 'Pages:', x$start_page, '-', x$end_page, '\n')
     
-    cat('Agencies mentioned:\n')
-    lapply(x$agencies, function(a) {
-        if(is.list(a)) cat('  ', a$raw_name, '(',a$id,')\n',sep='')
-    })
+    if(!is.null(x$agencies)){
+        cat('Agencies mentioned:\n')
+        lapply(x$agencies, function(a) {
+            if(is.list(a)) cat('  ', a$raw_name, '(',a$id,')\n',sep='')
+        })
+    }
     
     cat('URLs:\n')
     if(!is.null(x$raw_text_url))

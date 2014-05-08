@@ -4,9 +4,6 @@ fr_search <- function(..., fields=NULL, per_page=NULL, page=NULL,
     baseurl <- paste('https://www.federalregister.gov/api/',version,
                      '/articles.json?', sep='')
     
-    if(!is.null(fields))
-        fields <- curlEscape(paste('fields[]',fields,sep='=', collapse='&'))
-    
     query <- list(...)
     
     # need to process `publication_date` list
@@ -57,7 +54,7 @@ fr_search <- function(..., fields=NULL, per_page=NULL, page=NULL,
         p <- NULL
     
     if(!is.null(fields)){
-        fields <- curlEscape(paste('fields[]',fields,sep='=', collapse='&'))
+        fields <- paste(paste(curlEscape('fields[]'),fields,sep='='), collapse='&')
         args <- paste(fields,query,p,sep='&')
     } else
         args <- paste(query,p,sep='&')

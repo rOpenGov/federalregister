@@ -24,7 +24,7 @@ pi_search <- function(..., fields=NULL, per_page=NULL, page=NULL, version='v1') 
         p <- NULL
     
     if(!is.null(fields)){
-        fields <- curlEscape(paste('fields[]',fields,sep='=', collapse='&'))
+        fields <- paste(curlEscape(paste('fields[]',fields,sep='=')), collapse='&')
         args <- paste(fields,query,p,sep='&')
     } else
         args <- paste(query,p,sep='&')

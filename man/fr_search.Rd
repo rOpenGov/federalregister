@@ -50,6 +50,12 @@ Allowed values for \code{fields} are: \code{abstract}, \code{abstract_html_url},
 %\note{}
 %\seealso{}
 \examples{
-\dontrun{fr_search()}
+\dontrun{
+fr_search(presidential_document_type='executive_order',
+          fields=c('executive_order_number','president','raw_text_url','document_number'),
+          per_page=30)
+
+fr_search(term='climate', publication_date=list(gte='2013-01-01',lte='2013-03-31'))
+}
 }
 %\keyword{}
