@@ -22,10 +22,16 @@ Below are some examples of possible uses of the package.
 
 ### Contents of the Federal Register Over Time ###
 
-One way to use **federalregister** is to retrieve details about the contents of the Federal Register over-time, perhaps by President.
+One way to use **federalregister** is to retrieve details about the contents of the Federal Register over-time, perhaps Executive Orders by President.
 
-```
-# INSERT CODE HERE
+```{r, eval=TRUE, echo=TRUE}
+require('federalregister')
+clinton <- fr_search(presidential_document_type='executive_order', president='william-j-clinton', per_page=1000)
+bush <- fr_search(presidential_document_type='executive_order', president='george-w-bush', per_page=1000)
+obama <- fr_search(presidential_document_type='executive_order', president='barack-obama', per_page=1000)
+
+# number of Executive Orders
+c(clint=clinton$count, bush=bush$count, obama=obama$count)
 ```
 
 
@@ -33,8 +39,13 @@ One way to use **federalregister** is to retrieve details about the contents of 
 
 Each Federal Registry entry includes data on agency mentions (i.e., what agencies the entry applies to). We can use this information to analyze which agencies are getting attention, even over time.
 
-```
-# INSERT CODE HERE
+```{r, eval=TRUE, echo=TRUE}
+require('federalregister')
+a <- c('barry-m-goldwater-scholarship-and-excellence-in-education-foundation',
+       'assassination-records-review-board',
+       'arctic-research-commission')
+out <- lapply(a, function(x) fr_search(agencies=x, fields='', per_page=1000)$results)
+setNames(sapply(out, length), a)
 ```
 
 
@@ -48,9 +59,12 @@ Doing it using **federalregister** is quite a bit easier:
 
 ```{r, eval=TRUE, echo=TRUE}
 require('federalregister')
-clinton <- fr_search(presidential_document_type='executive_order', president='william-j-clinton', per_page=1000)
-bush <- fr_search(presidential_document_type='executive_order', president='george-w-bush', per_page=1000)
-obama <- fr_search(presidential_document_type='executive_order', president='barack-obama', per_page=1000)
+clinton <-  fr_search(presidential_document_type='executive_order', 
+                      president='william-j-clinton', per_page=1000)
+bush <-     fr_search(presidential_document_type='executive_order', 
+                      president='george-w-bush', per_page=1000)
+obama <-    fr_search(presidential_document_type='executive_order', 
+                      president='barack-obama', per_page=1000)
 
 # number of Executive Orders
 c(clint=clinton$count, bush=bush$count, obama=obama$count)
@@ -61,6 +75,9 @@ c(clint=clinton$count, bush=bush$count, obama=obama$count)
 
 The API returns metadata about entries in the Federal Register, including links to HTML, PDF, and plain text versions of entries in the Federal Register. Using **federalregister** to retrieve the plain text URLs, it is then possible to reconstruct the contents of the Register for use in, e.g., some kind of text mining analysis.
 
-```
-# INSERT CODE HERE
+```{r, eval=TRUE, echo=TRUE}
+arecord <- fr_get('E9-1719')
+# install.packages('httr')
+require('httr')
+GET(arecord[[1]]$raw_text_url)
 ```
