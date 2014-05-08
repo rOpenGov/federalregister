@@ -46,36 +46,15 @@ https://www.federalregister.gov/api/v1/articles.json?conditions%5Bcorrection%5D=
 
 Doing it using **federalregister** is quite a bit easier:
 
-
-```r
-require("federalregister")
-```
-
-```
-## Loading required package: federalregister
-```
-
-```
-## Warning: there is no package called 'federalregister'
-```
-
-```r
-clinton <- fr_search(presidential_document_type = "executive_order", president = "william-j-clinton", 
-    per_page = 1000)
-bush <- fr_search(presidential_document_type = "executive_order", president = "george-w-bush", 
-    per_page = 1000)
-obama <- fr_search(presidential_document_type = "executive_order", president = "barack-obama", 
-    per_page = 1000)
+```{r, eval=TRUE, echo=TRUE}
+require('federalregister')
+clinton <- fr_search(presidential_document_type='executive_order', president='william-j-clinton', per_page=1000)
+bush <- fr_search(presidential_document_type='executive_order', president='george-w-bush', per_page=1000)
+obama <- fr_search(presidential_document_type='executive_order', president='barack-obama', per_page=1000)
 
 # number of Executive Orders
-c(clint = clinton$count, bush = bush$count, obama = obama$count)
+c(clint=clinton$count, bush=bush$count, obama=obama$count)
 ```
-
-```
-## clint  bush obama 
-##   308   290   188
-```
-
 
 
 ### Text-mining the Federal Register ###
