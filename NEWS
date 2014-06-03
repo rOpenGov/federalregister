@@ -1,3 +1,9 @@
+# CHANGES TO federalregister 0.2 #
+
+## BUG FIXES ##
+
+* Fixed a bug related to class assignment for the output object in `fr_agencies` (#1, h/t Stephen Kaluzny)
+
 # CHANGES TO federalregister 0.1 #
 
 * First version released
