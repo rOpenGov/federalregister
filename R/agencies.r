@@ -13,13 +13,14 @@ fr_agencies <- function(id=NULL, version='v1'){
                 writefunction=h$update)
     response <- h$value()
     out <- fromJSON(response)
-    if(length(out)>1){
+    if(length(id)==1){
+        class(out) <- 'fedreg_agency'
+    } else if(length(out)>1){
         out <- lapply(out, function(x) {
             class(x) <- 'fedreg_agency'
             return(x)
         })
-    } else
-        class(out) <- 'fedreg_agency'
+    }
     return(out)
 }
 
