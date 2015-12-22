@@ -1,5 +1,5 @@
 fr_search <- function(..., fields=NULL, per_page=NULL, page=NULL,
-                      order='relevance', version='v1') {
+                      order='relevance', version='v1', getopts = NULL) {
 
     baseurl <- paste('https://www.federalregister.gov/api/',version,
                      '/articles.json?', sep='')
@@ -39,32 +39,32 @@ fr_search <- function(..., fields=NULL, per_page=NULL, page=NULL,
         query <- c(query, p)
     }
     
-    query <- paste(curlEscape(paste('conditions[',names(query),']=',query,sep='')),collapse='&')
+    query <- paste(curl_escape(paste('conditions[',names(query),']=',query,sep='')),collapse='&')
     
     # handle pagination
-    if(!is.null(per_page) && as.numeric(per_page)>1000)
+    if(!is.null(per_page) && as.numeric(per_page)>1000) {
         stop("'per_page' cannot be greater than 1000")
-    else if(!is.null(per_page) & !is.null(page))
+    } else if(!is.null(per_page) & !is.null(page)) {
         p <- paste('per_page=',per_page,'&page=',page,sep='')
-    else if(!is.null(per_page) & is.null(page))
+    } else if(!is.null(per_page) & is.null(page)) {
         p <- paste('per_page=',per_page,sep='')
-    else if(!is.null(page))
+    } else if(!is.null(page)) {
         p <- paste('page=',page,sep='')
-    else 
+    } else {
         p <- NULL
+    }
     
     if(!is.null(fields)){
-        fields <- paste(paste(curlEscape('fields[]'),fields,sep='='), collapse='&')
+        fields <- paste(paste(curl_escape('fields[]'),fields,sep='='), collapse='&')
         args <- paste(fields,query,p,sep='&')
-    } else
+    } else {
         args <- paste(query,p,sep='&')
+    }
     
-    h <- basicTextGatherer()
-    curlPerform(url = paste(baseurl, args, sep=''),
-                followlocation = 1L, ssl.verifypeer = 1L, ssl.verifyhost = 2L, 
-                cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl"),
-                writefunction=h$update)
-    response <- h$value()
+    
+    r <- do.call("GET", c(list(url = paste(baseurl, args, sep='')), getopts))
+    stop_for_status(r)
+    response <- content(r, "text")
     out <- fromJSON(response)
     out$results <- lapply(out$results, `class<-`, 'fedreg_document')
     return(out)

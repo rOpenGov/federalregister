@@ -1,4 +1,4 @@
-pi_get <- function(docnumber, version='v1'){
+pi_get <- function(docnumber, version='v1', ...){
 
     # combine multiple document numbers
     docnumbers <- paste(docnumber, collapse=',')
@@ -7,12 +7,9 @@ pi_get <- function(docnumber, version='v1'){
     
     args <- NULL
     
-    h <- basicTextGatherer()
-    curlPerform(url = paste(baseurl, args, sep=''),
-                followlocation = 1L, ssl.verifypeer = 1L, ssl.verifyhost = 2L, 
-                cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl"),
-                writefunction=h$update)
-    response <- h$value()
+    r <- GET(url = paste(baseurl, args, sep=''), ...)
+    stop_for_status(r)
+    response <- content(r, "text")
     out <- fromJSON(response)
     if(length(strsplit(docnumbers,',')[[1]])==1){
         class(out) <- 'fedreg_document'

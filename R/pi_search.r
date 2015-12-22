@@ -1,4 +1,4 @@
-pi_search <- function(..., fields=NULL, per_page=NULL, page=NULL, version='v1') {
+pi_search <- function(..., fields=NULL, per_page=NULL, page=NULL, version='v1', getopts = NULL) {
     
     baseurl <- paste('https://www.federalregister.gov/api/',version,
                      '/public-inspection-documents.json?', sep='')
@@ -9,7 +9,7 @@ pi_search <- function(..., fields=NULL, per_page=NULL, page=NULL, version='v1') 
     # conditions[available_on]=date
     if('date' %in% names(query))
         names(query)[names(query)=='date'] <- 'available_on'
-    query <- curlEscape(paste('conditions[',names(query),']=',query,sep='',collapse='&'))
+    query <- curl_escape(paste('conditions[',names(query),']=',query,sep='',collapse='&'))
     
     # handle pagination
     if(!is.null(per_page) && as.numeric(per_page)>1000)
@@ -24,17 +24,14 @@ pi_search <- function(..., fields=NULL, per_page=NULL, page=NULL, version='v1') 
         p <- NULL
     
     if(!is.null(fields)){
-        fields <- paste(curlEscape(paste('fields[]',fields,sep='=')), collapse='&')
+        fields <- paste(curl_escape(paste('fields[]',fields,sep='=')), collapse='&')
         args <- paste(fields,query,p,sep='&')
     } else
         args <- paste(query,p,sep='&')
     
-    h <- basicTextGatherer()
-    curlPerform(url = paste(baseurl, args, sep=''),
-                followlocation = 1L, ssl.verifypeer = 1L, ssl.verifyhost = 2L, 
-                cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl"),
-                writefunction=h$update)
-    response <- h$value()
+    r <- do.call("GET", c(list(url = paste(baseurl, args, sep='')), getopts))
+    stop_for_status(r)
+    response <- content(r, "text")
     out <- fromJSON(response)
     out$results <- lapply(out$results, `class<-`, 'fedreg_document')
     return(out)

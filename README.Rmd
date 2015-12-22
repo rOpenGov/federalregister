@@ -1,5 +1,7 @@
 # R Client for the U.S. Federal Register API #
 
+[![CRAN Version](http://www.r-pkg.org/badges/version/federalregister)](http://cran.r-project.org/package=federalregister)
+![Downloads](http://cranlogs.r-pkg.org/badges/federalregister)
 [![Build Status](https://travis-ci.org/rOpenGov/federalregister.png?branch=master)](https://travis-ci.org/rOpenGov/federalregister)
 
 This package provides access to the [API](https://www.federalregister.gov/developers/api/v1) for the [United States Federal Register](https://www.federalregister.gov/). The API provides access to [all Federal Register contents since 1994](https://www.federalregister.gov/learn/developers), including Executive Orders by Presidents Clinton, Bush, and Obama and all ["Public Inspection" Documents](https://www.federalregister.gov/learn/public-inspection-desk-2) made available prior to publication in the Register. The API returns basic details about each entry in the Register and provides URLs for HTML, PDF, and plain text versions of the contents thereof, and the data are fully searchable. The **federalregister** package provides access to all version 1 API endpoints.
@@ -9,8 +11,10 @@ This package provides access to the [API](https://www.federalregister.gov/develo
 The package can be installed from GitHub:
 
 ```
-# install.packages('devtools')
-library('devtools')
+if (!require('devtools')) {
+    install.packages('devtools')
+    library('devtools')
+}
 install_github('rOpenGov/federalregister')
 library('federalregister')
 ```
@@ -77,7 +81,6 @@ The API returns metadata about entries in the Federal Register, including links 
 
 ```{r, eval=TRUE, echo=TRUE}
 arecord <- fr_get('E9-1719')
-# install.packages('httr')
-require('httr')
-GET(arecord[[1]]$raw_text_url)
+full <- httr::content(httr::GET(arecord[[1]]$raw_text_url), "text", encoding = "UTF-8")
+cat(substring(full, 1, 1000))
 ```
