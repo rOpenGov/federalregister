@@ -2,7 +2,10 @@
 \alias{fr_search}
 \title{Search the Federal Register}
 \description{Function to search for entries in the Federal Register}
-\usage{fr_search(..., fields=NULL, per_page=NULL, page=NULL, order='relevance', version='v1')}
+\usage{
+fr_search(..., fields=NULL, per_page=NULL, page=NULL, 
+          order='relevance', version='v1', getopts = NULL)
+}
 \arguments{
   \item{...}{Named arguments specifying a search query. See Details.}
   \item{fields}{A character vector specifying the names of fields to return. See Details.}
@@ -10,6 +13,7 @@
   \item{page}{A numeric value specifying the page of results to return.}
   \item{order}{A character string specifying \dQuote{relevance} (the default), \dQuote{newest}, \dQuote{oldest}, or \dQuote{executive_order_number}.}
   \item{version}{The Federal Register API version. Default is 'v1'.}
+  \item{getopts}{Additional arguments passed to \code{\link[httr]{GET}}.}
 }
 \details{
 The \code{\dots} argument should contain named arguments that together constitute a search query. Allowed named arguments are: 

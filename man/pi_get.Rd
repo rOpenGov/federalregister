@@ -2,10 +2,11 @@
 \alias{pi_get}
 \title{Get Public Inspection Metadata}
 \description{Function to get metadata for one or more Public Inspection Documents}
-\usage{pi_get(docnumber, version='v1')}
+\usage{pi_get(docnumber, version='v1', ...)}
 \arguments{
   \item{docnumber}{A character vector containing one or more Public Inspection Document document numbers.}
   \item{version}{The Federal Register API version. Default is 'v1'.}
+  \item{\dots}{Additional arguments passed to \code{\link[httr]{GET}}.}
 }
 %\details{}
 \value{A list containing one or more objects of class \code{fedreg_document}.}

@@ -1,5 +1,11 @@
 # CHANGES TO federalregister 0.2 #
 
+## SIGNIFICANT USER-VISIBLE CHANGES ##
+
+* Exposed `...` (or, in two cases `getopts`) arguments to control behavior of HTTP requests.
+* Replaced use of RCurl with httr. (#2)
+* Replaced use of RJSONIO with jsonlite. (#2)
+
 ## BUG FIXES ##
 
 * Fixed a bug related to class assignment for the output object in `fr_agencies` (#1, h/t Stephen Kaluzny)

@@ -2,13 +2,14 @@
 \alias{pi_search}
 \title{Search Public Inspection Documents}
 \description{Function to search for documents under Public Inspection}
-\usage{pi_search(..., fields=NULL, per_page=NULL, page=NULL, version='v1')}
+\usage{pi_search(..., fields=NULL, per_page=NULL, page=NULL, version='v1', getopts = NULL)}
 \arguments{
   \item{...}{Named arguments specifying a search query. See Details.}
   \item{fields}{A character vector specifying the names of fields to return. See Details.}
   \item{per_page}{A numeric value specifying the number of records to return. Default is \code{NULL}, which returns 20 results per page. Maximum is 1000.}
   \item{page}{A numeric value specifying the page of results to return.}
   \item{version}{The Federal Register API version. Default is 'v1'.}
+  \item{getopts}{Additional arguments passed to \code{\link[httr]{GET}}.}
 }
 \details{
 The \code{\dots} argument should contain named arguments that together constitute a search query. Allowed named arguments are:
