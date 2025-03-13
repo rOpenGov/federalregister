@@ -1,2 +1,7 @@
 .travis.yml
 README.Rmd
+README.qmd
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.github$
+^\._pkgdown\.yml$
