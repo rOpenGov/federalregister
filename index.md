@@ -48,6 +48,7 @@ complicated:
 Doing it using `federalregister` is quite a bit easier:
 
 ``` r
+
 library('federalregister')
 clinton <-  fr_search(presidential_document_type='executive_order', 
                       president='william-j-clinton', per_page=1000)
@@ -72,6 +73,7 @@ agencies the entry applies to). We can use this information to analyze
 which agencies are getting attention, even over time.
 
 ``` r
+
 library('federalregister')
 a <- c('barry-m-goldwater-scholarship-and-excellence-in-education-foundation',
        'assassination-records-review-board',
@@ -98,6 +100,7 @@ URLs, it is then possible to reconstruct the contents of the Register
 for use in, e.g., some kind of text mining analysis.
 
 ``` r
+
 arecord <- fr_get('E9-1719')
 full <- httr::content(httr::GET(arecord[[1]]$raw_text_url), "text", encoding = "UTF-8")
 cat(substring(full, 1, 1000))
